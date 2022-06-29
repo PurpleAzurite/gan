@@ -44,7 +44,7 @@ fixed_noise = torch.randn((params.batch_size, params.z_dim)).to(device)
 transforms = transforms.Compose(
     [
         transforms.ToTensor(),
-        transforms.Normalize((0.1307,), (0.3081,)),
+        transforms.Normalize((0.1307,), (0.3081,)),  # These values are the mean std of MNIST dataset
     ]
 )
 
@@ -58,10 +58,11 @@ writer_real = SummaryWriter(f"../runs/GAN_MNIST/real")
 step = 0
 
 for epoch in range(params.num_epochs):
-    for batch_idx, (real, _) in enumerate(loader):
+    for batch_idx, (real, _) in enumerate(loader):  # _ is labels, but we are not using them
         real = real.view(-1, 784).to(device)
         batch_size = real.shape[0]
 
+        # Train discriminator: max log(D(real)) + log(1 - D(G(z))
         noise = torch.randn(batch_size, params.z_dim).to(device)
         fake = gen(noise)
         disc_real = disc(real).view(-1)
