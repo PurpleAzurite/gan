@@ -53,8 +53,8 @@ loader = DataLoader(dataset, batch_size=params.batch_size, shuffle=True)
 opt_disc = optim.Adam(disc.parameters(), lr=params.lr)
 opt_gen = optim.Adam(gen.parameters(), lr=params.lr)
 criterion = nn.BCELoss()
-writer_fake = SummaryWriter(f"../runs/GAN_MNIST/fake")
-writer_real = SummaryWriter(f"../runs/GAN_MNIST/real")
+writer_fake = SummaryWriter(f"../logs/gan/mnist/fake")
+writer_real = SummaryWriter(f"../logs/gan/mnist/real")
 step = 0
 
 for epoch in range(params.num_epochs):
