@@ -98,3 +98,5 @@ for epoch in range(params.num_epochs):
                 writer_real.add_image(
                     "Mnist Real Images", img_grid_real, global_step=step
                 )
+
+            step += 1
