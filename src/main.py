@@ -33,9 +33,8 @@ from torch.utils.tensorboard import SummaryWriter
 from base import hyperparameters
 from networks import simple_gan
 
-
-device = "cuda" if torch.cuda.is_available() else "cpu"
-params = hyperparameters.GAN(lr=3e-4, z_dim=64, image_dim=28 * 28 * 1, batch_size=32, num_epochs=1)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+params = hyperparameters.GAN(lr=3e-4, z_dim=64, image_dim=28 * 28 * 1, batch_size=32, num_epochs=5)
 
 disc, gen = simple_gan.gan(params.image_dim, params.z_dim)
 disc.to(device)
