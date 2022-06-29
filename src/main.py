@@ -80,24 +80,19 @@ for epoch in range(params.num_epochs):
         lossG.backward()
         opt_gen.step()
 
-        if batch_idx == 0:
+        if batch_idx % 100 == 0:
             print(
-                f"Epoch [{epoch}/{params.num_epochs}] \ "
-                f"Epoch D: {lossD:.4f}, Loss G: {lossG:.4f}"
+                f"Epoch [{epoch}/{params.num_epochs}] \
+                    Epoch D: {lossD:.4f}, Loss G: {lossG:.4f}"
             )
 
-            with torch.no_grad():
-                fake = gen(fixed_noise).reshape(-1, 1, 28, 28)
-                data = real.reshape(-1, 1, 28, 28)
-                img_grid_fake = torchvision.utils.make_grid(fake, normalize=True)
-                img_grid_real = torchvision.utils.make_grid(data, normalize=True)
+        with torch.no_grad():
+            fake = gen(fixed_noise).reshape(-1, 1, 28, 28)
+            data = real.reshape(-1, 1, 28, 28)
+            img_grid_fake = torchvision.utils.make_grid(fake, normalize=True)
+            img_grid_real = torchvision.utils.make_grid(data, normalize=True)
 
-                writer_fake.add_image(
-                    "Mnist Fake Images", img_grid_fake, global_step=step,
-                )
-
-                writer_real.add_image(
-                    "Mnist Real Images", img_grid_real, global_step=step
-                )
+            writer_fake.add_image("Fake", img_grid_fake, global_step=step)
+            writer_real.add_image("Real", img_grid_real, global_step=step)
 
             step += 1
