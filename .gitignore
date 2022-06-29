@@ -133,4 +133,4 @@ dmypy.json
 
 # Other
 datasets
-runs
+logs
